@@ -1,5 +1,4 @@
 var expect = require('chai').expect;
-var fs = require('fs');
 
 var exec = require('child_process').exec;
 
@@ -79,20 +78,5 @@ describe('cli arguments', function() {
       '--noLinkBrackets=true',
       'test http://my.link',
       done);
-  });
-
-  it('should support --tables definitions with commas', function(done) {
-    var expectedTxt = fs.readFileSync('test/test.txt', 'utf8');
-
-    function runWithArgs(args, callback) {
-      exec('cat test/test.html | node bin/cli.js ' + args, callback);
-    }
-
-    runWithArgs('--tables=#invoice,.address', function callback(error, stdout, stderr) {
-      expect(error).to.be.a('null');
-      expect(stderr).to.equal('');
-      expect(stdout).to.equal(expectedTxt + '\n');
-      done(error);
-    });
   });
 });
