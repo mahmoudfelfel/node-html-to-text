@@ -3,7 +3,6 @@
 var expect = require('chai').expect;
 var htmlToText = require('..');
 var path = require('path');
-var fs = require('fs');
 
 describe('html-to-text', function() {
   describe('.fromString()', function() {
@@ -139,21 +138,6 @@ describe('html-to-text', function() {
 
       it('should use single new line when given true', function() {
         expect(htmlToText.fromString(paragraphsString, { singleNewLineParagraphs: true } )).to.equal('First\nSecond');
-      });
-    });
-  });
-
-  describe('.fromFile()', function() {
-    it('should convert file at given path', function(done) {
-
-      var htmlFile = path.join(__dirname, 'test.html'),
-        txtFile = path.join(__dirname, 'test.txt');
-
-      var expectedTxt = fs.readFileSync(txtFile, 'utf8');
-      htmlToText.fromFile(htmlFile, { tables: ['#invoice', '.address'] }, function(err, text) {
-        expect(err).to.be.a('null');
-        expect(text).to.equal(expectedTxt);
-        done();
       });
     });
   });
